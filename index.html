@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' media='screen'
+        href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <title>Calculator with PyScript</title>
+
+    <style>
+        .answer {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 600;
+            background-image: linear-gradient(to left, #3f1708, #c3d02e);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        body {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            min-height: 50vh;
+            grid-template-columns: 30vw;
+            grid-template-rows: repeat(3, 10vh) 5vh repeat(2, 10vh);
+            grid-gap: 5px;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header h1 {
+            text-align: center;
+            font-size: 50px;
+            font-weight: 600;
+            background-image: linear-gradient(to left, #553c9a, #b393d3);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .inputs p {
+            margin: 0;
+        }
+
+        #calculate,
+        #clear {
+            width: 100%;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Let's gooo!</h1>
+    </header>
+    <p>Enter first number:</p>
+    <input type="number" id="num1" placeholder="Enter number...">
+    <!-- <br> -->
+    <p>Select operator:</p>
+    <select id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <!-- <br> -->
+    <p>Enter second number:</p>
+    <input type="number" id="num2" placeholder="Enter number...">
+    <!-- <br> -->
+    <button id="calculate" type="button" class="button is-primary" pys-onClick="calculate">Calculate</button>
+    <button id="clear" type="button" class="button is-danger" pys-onClick="clear">Reset</button>
+    <p>Answer:</p>
+    <p id="output" class="answer"></p>
+
+    <py-script>
+
+        def calculate(*args, **kwargs):
+
+            num1 = float(Element("num1").value)
+            num2 = float(Element("num2").value)
+            operator = Element("operator").value
+            result = Element("output")
+
+            if operator == "+":
+                result.write(num1 + num2)
+            elif operator == "-":
+                result.write(num1 - num2)
+            elif operator == "*":
+                result.write(num1 * num2)
+            elif operator == "/":
+                result.write(num1 / num2)
+            else:
+                result.write("Invalid operator!")
+
+            print(result)
+
+        def clear(*args, **kwargs):
+            Element("num1").clear()
+            Element("num2").clear()
+            Element("output").clear()
+
+    </py-script>
+
+</body>
+
+</html>
